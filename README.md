@@ -44,7 +44,8 @@ ${HOST_URL}/kafka/v1
 HTTP POST - ${HOST_URL}/kafka/v1/producer
 ```
 
-* Available endpoint that sends a message to Apache Kafka Topic, you can send a String in the body of the request
+* Available endpoint that sends a message to Apache Kafka Topic
+  * You can send a String in the body of the request
 
 ---
 
