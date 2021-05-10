@@ -25,6 +25,7 @@
 
 - Java 11 with Spring Boot 2.4.5 and Apache Kafka
 - Available endpoint to publish messages to Kafka Topics
+- Subscribe messages from Kafka
 
 ## :file_folder: Resources
 
