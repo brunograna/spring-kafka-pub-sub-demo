@@ -14,10 +14,10 @@
 
 </p>
 
-## :rocket: Project Features (in progress)
+## :rocket: Project Features
 
 * Publish and Subscribe Kafka Messages
-* Apache Kafka Docker Compose configuration
+* Docker Compose with Kafka and ZooKeeper configuration
 
 :mag: Download the project and test by yourself.
 
