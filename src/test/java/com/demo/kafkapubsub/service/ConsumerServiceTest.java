@@ -1,7 +1,6 @@
 package com.demo.kafkapubsub.service;
 
 import com.demo.kafkapubsub.mocks.KafkaMock;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,6 +19,12 @@ class ConsumerServiceTest {
         void shouldConsumeWithoutThrowException() {
             Assertions.assertDoesNotThrow(
                     () -> consumerService.consumeFromFirstGroupId(KafkaMock.consumeUserMessage(), KafkaMock.headers()));
+        }
+
+        @Test
+        void shouldNotThrownExceptionWhenBodyIsInWrongFormat() {
+            Assertions.assertDoesNotThrow(
+                    () -> consumerService.consumeFromFirstGroupId("wrong message", KafkaMock.headers()));
         }
     }
 
