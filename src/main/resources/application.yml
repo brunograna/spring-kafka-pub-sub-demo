@@ -5,6 +5,7 @@ spring:
     bootstrap-servers: localhost:29092
     consumer:
       auto-offset-reset: earliest
+      group-id: backend
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:

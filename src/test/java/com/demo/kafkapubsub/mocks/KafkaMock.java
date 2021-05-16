@@ -1,8 +1,5 @@
 package com.demo.kafkapubsub.mocks;
 
-import com.demo.kafkapubsub.domain.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.kafka.support.KafkaHeaders;
 
 import java.util.Map;

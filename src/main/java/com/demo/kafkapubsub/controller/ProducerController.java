@@ -1,6 +1,6 @@
 package com.demo.kafkapubsub.controller;
 
-import com.demo.kafkapubsub.domain.User;
+import com.demo.kafkapubsub.domain.News;
 import com.demo.kafkapubsub.service.ProducerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class ProducerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void publish(@RequestBody String name) throws JsonProcessingException {
-        this.producerService.sendMessage(new User(name));
+    public void publish(@RequestBody News news) throws JsonProcessingException {
+        this.producerService.sendMessage(news);
     }
 }

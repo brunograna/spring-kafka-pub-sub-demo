@@ -1,12 +1,10 @@
 package com.demo.kafkapubsub.service;
 
 import com.demo.kafkapubsub.config.AppConfig;
-import com.demo.kafkapubsub.domain.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.stereotype.Service;
 
@@ -17,28 +15,55 @@ public class ConsumerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
 
-    private final ObjectMapper objectMapper;
-
-    public ConsumerService(final ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    @KafkaListener(
+            topicPartitions = { @TopicPartition(
+                    topic = AppConfig.NEWS_CREATED_TOPIC_NAME,
+                    partitions = {
+                            AppConfig.NEWS_CREATED_BRAZIL_PARTITION,
+                            AppConfig.NEWS_CREATED_INTERNATIONAL_PARTITION
+                    })
+            },
+            groupId = AppConfig.BACKEND_CONSUMER_GROUP)
+    public void consumeBackendBrazilNews(String message, @Headers Map<String, String> headers) {
+        logger.info("BACKEND - BRAZIL NEWS - Message received as JSON -> {}", message);
     }
 
-    @KafkaListener(topics = AppConfig.TOPIC_NAME, groupId = AppConfig.FIRST_GROUP_ID)
-    public void consumeFromFirstGroupId(String message, @Headers Map<String, String> headers) {
-        try {
-            var user = this.objectMapper.readValue(message, User.class);
+    @KafkaListener(
+            topicPartitions = { @TopicPartition(
+                    topic = AppConfig.NEWS_CREATED_TOPIC_NAME,
+                    partitions = {
+                            AppConfig.NEWS_CREATED_US_PARTITION,
+                            AppConfig.NEWS_CREATED_INTERNATIONAL_PARTITION
+                    })
+            },
+            groupId = AppConfig.BACKEND_CONSUMER_GROUP)
+    public void consumeBackendUsNews(String message, @Headers Map<String, String> headers) {
+        logger.info("BACKEND - US NEWS - Message received as JSON -> {}", message);
+    }
 
-            logger.info("=============== FIRST GROUP ID =================");
-            logger.info("Message received as JSON -> {}", message);
-            logger.info("Message received as Object -> {}", user);
-            logger.info("Headers received -> {}", headers);
-            logger.info("=============== FIRST GROUP ID =================");
+    @KafkaListener(
+            topicPartitions = { @TopicPartition(
+                    topic = AppConfig.NEWS_CREATED_TOPIC_NAME,
+                    partitions = {
+                            AppConfig.NEWS_CREATED_BRAZIL_PARTITION,
+                            AppConfig.NEWS_CREATED_INTERNATIONAL_PARTITION
+                    })
+            },
+            groupId = AppConfig.MOBILE_CONSUMER_GROUP)
+    public void consumeMobileBrazilNews(String message, @Headers Map<String, String> headers) {
+        logger.info("MOBILE - BRAZIL NEWS - Message received as JSON -> {}", message);
+    }
 
-        } catch (JsonProcessingException e) {
-            logger.error("=============== FAILURE FIRST GROUP ID =================");
-            logger.error("Consume failed for JSON -> {}", message);
-            logger.error("Details: {}", e.getMessage());
-            logger.error("=============== FAILURE FIRST GROUP ID =================");
-        }
+    @KafkaListener(
+            topicPartitions = { @TopicPartition(
+                    topic = AppConfig.NEWS_CREATED_TOPIC_NAME,
+                    partitions = {
+                            AppConfig.NEWS_CREATED_US_PARTITION,
+                            AppConfig.NEWS_CREATED_INTERNATIONAL_PARTITION
+                    })
+            },
+            groupId = AppConfig.MOBILE_CONSUMER_GROUP)
+    public void consumeMobileUsNews(String message, @Headers Map<String, String> headers) {
+        logger.info("MOBILE - US NEWS - Message received as JSON -> {}", message);
     }
 }

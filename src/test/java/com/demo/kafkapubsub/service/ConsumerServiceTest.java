@@ -18,13 +18,13 @@ class ConsumerServiceTest {
         @Test
         void shouldConsumeWithoutThrowException() {
             Assertions.assertDoesNotThrow(
-                    () -> consumerService.consumeFromFirstGroupId(KafkaMock.consumeUserMessage(), KafkaMock.headers()));
+                    () -> consumerService.consumeBackendUsNews(KafkaMock.consumeUserMessage(), KafkaMock.headers()));
         }
 
         @Test
         void shouldNotThrownExceptionWhenBodyIsInWrongFormat() {
             Assertions.assertDoesNotThrow(
-                    () -> consumerService.consumeFromFirstGroupId("wrong message", KafkaMock.headers()));
+                    () -> consumerService.consumeBackendBrazilNews("wrong message", KafkaMock.headers()));
         }
     }
 

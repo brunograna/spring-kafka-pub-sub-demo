@@ -1,14 +1,12 @@
 package com.demo.kafkapubsub.service;
 
-import com.demo.kafkapubsub.domain.User;
-import com.demo.kafkapubsub.mocks.UserMock;
+import com.demo.kafkapubsub.mocks.NewsMock;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -39,7 +37,7 @@ class ProducerServiceTest {
 
         @Test
         void shouldSendWithSuccess() throws JsonProcessingException {
-            var user = UserMock.success();
+            var user = NewsMock.success();
 
             producerService.sendMessage(user);
 

@@ -1,7 +1,7 @@
 package com.demo.kafkapubsub.service;
 
 import com.demo.kafkapubsub.config.AppConfig;
-import com.demo.kafkapubsub.domain.User;
+import com.demo.kafkapubsub.domain.News;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -25,13 +25,14 @@ public class ProducerService {
         this.objectMapper = objectMapper;
     }
 
-    public void sendMessage(User user) throws JsonProcessingException {
-        var message = this.objectMapper.writeValueAsString(user);
+    public void sendMessage(News news) throws JsonProcessingException {
+        var message = this.objectMapper.writeValueAsString(news);
 
         logger.info("Message sent -> {}", message);
 
         this.kafkaTemplate.send(MessageBuilder.withPayload(message)
-                                    .setHeader(KafkaHeaders.TOPIC, AppConfig.TOPIC_NAME)
+                                    .setHeader(KafkaHeaders.TOPIC, AppConfig.NEWS_CREATED_TOPIC_NAME)
+                                    .setHeader(KafkaHeaders.PARTITION_ID, news.getLocationIdentifier())
                                     .setHeader("x-application-name", "kafka-pub-sub")
                                     .build());
     }
