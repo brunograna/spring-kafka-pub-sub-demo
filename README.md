@@ -46,7 +46,25 @@ HTTP POST - ${HOST_URL}/kafka/v1/producer
 ```
 
 * Available endpoint that sends a message to Apache Kafka Topic
-  * You can send a String in the body of the request
+  * You should send the following schema in the body of the request
+    
+**Json Schema Definition:**
+```
+type: object
+properties:
+  title:
+    type: string
+    description: news title
+  location:
+    type: string
+    enum:
+      - brazil
+      - us
+      - international
+    description: news location
+required:
+  - title
+```
 
 ---
 

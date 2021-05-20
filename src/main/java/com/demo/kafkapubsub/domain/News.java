@@ -1,6 +1,7 @@
 package com.demo.kafkapubsub.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
@@ -22,9 +23,10 @@ public class News {
     }
 
     public Location getLocation() {
-        return location;
+        return location == null ? Location.INTERNATIONAL : location;
     }
 
+    @JsonIgnore
     public Integer getLocationIdentifier() {
         return Objects.isNull(location) ? Location.INTERNATIONAL.getIdentifier() : location.getIdentifier();
     }
